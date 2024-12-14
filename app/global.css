@@ -18,7 +18,7 @@ body {
     @apply flex justify-start items-center;
   }
   .card-wrapper {
-    @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-dark-100;
+    @apply bg-light-900 dark:dark-gradient shadow-light-100;
   }
   .btn {
     @apply bg-light-800 dark:bg-dark-300 !important;
@@ -30,7 +30,7 @@ body {
     @apply bg-light-700 dark:bg-dark-300 !important;
   }
   .markdown {
-    @apply max-w-full prose dark:prose-p:text-light-700 dark:prose-p:text-light-500;
+    @apply max-w-full prose dark:prose-p:text-light-700 dark:prose-p:text-light-300;
   }
   .primary-gradient {
     background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
@@ -99,10 +99,8 @@ body {
 code {
   overflow-wrap: break-word;
   word-wrap: break-word;
+  -ms-word-break: break-all;
   word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
   hyphens: auto;
   padding: 2px;
   color: #ff7000 !important;
