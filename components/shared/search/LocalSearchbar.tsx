@@ -38,6 +38,16 @@ function LocalSearchbar({
         onChange={() => {}}
         className="paragraph-regular no-focus placeholder background-light800_darkgradient dark:text-dark400_light700 border-none shadow-none outline-none"
       />
+
+      {iconPosition === "right" && (
+        <Image
+          src={imgSrc}
+          alt="search icon"
+          width={24}
+          height={24}
+          className="cursor-pointer"
+        />
+      )}
     </div>
   );
 }
