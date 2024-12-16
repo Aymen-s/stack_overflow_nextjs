@@ -4,19 +4,19 @@ import React from "react";
 import RenderTag from "./RenderTag";
 
 const hotQuestions = [
-  { _id: 1, title: "How do i use express as a custom server in NextJS" },
-  { _id: 2, title: "How do i use express as a custom server in NextJS" },
-  { _id: 3, title: "How do i use express as a custom server in NextJS" },
-  { _id: 4, title: "How do i use express as a custom server in NextJS" },
-  { _id: 5, title: "How do i use express as a custom server in NextJS" },
+  { _id: "1", title: "How do i use express as a custom server in NextJS" },
+  { _id: "2", title: "How do i use express as a custom server in NextJS" },
+  { _id: "3", title: "How do i use express as a custom server in NextJS" },
+  { _id: "4", title: "How do i use express as a custom server in NextJS" },
+  { _id: "5", title: "How do i use express as a custom server in NextJS" },
 ];
 
 const popularTags = [
-  { _id: 1, name: "javascript", totalQuestions: 5 },
-  { _id: 2, name: "javascript", totalQuestions: 5 },
-  { _id: 3, name: "javascript", totalQuestions: 5 },
-  { _id: 4, name: "javascript", totalQuestions: 5 },
-  { _id: 5, name: "javascript", totalQuestions: 5 },
+  { _id: "1", name: "javascript", totalQuestions: 5 },
+  { _id: "2", name: "javascript", totalQuestions: 5 },
+  { _id: "3", name: "javascript", totalQuestions: 5 },
+  { _id: "4", name: "javascript", totalQuestions: 5 },
+  { _id: "5", name: "javascript", totalQuestions: 5 },
 ];
 const RightSidebar = () => {
   return (
