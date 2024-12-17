@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,15 +18,17 @@ import { Input } from "@/components/ui/input";
 import { QuestionsSchema } from "@/lib/validation";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+const type: any = "create";
 
 function Question() {
   const editorRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     console.log(editorRef.current.getContent());
+  //   }
+  // };
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -40,9 +42,15 @@ function Question() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    setIsSubmitting(true);
+    try {
+      // make an async call to your API -> create a question
+      // contain all form data
+      // navigate to home page
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const handleInputKeyDown = (
@@ -56,6 +64,7 @@ function Question() {
       const tagValue = tagInput.value.trim();
 
       if (tagValue !== "") {
+        // Check if the tag exceeds the length limit
         if (tagValue.length > 15) {
           return form.setError("tags", {
             type: "required",
@@ -63,12 +72,22 @@ function Question() {
           });
         }
 
-        if (!field.value.includes(tagValue as never)) {
-          form.setValue("tags", [field.value, tagValue]);
-          tagInput.value = "";
-          form.clearErrors("tags");
+        // Check if the tag array has already reached the limit of 5 tags
+        if (field.value.length >= 3) {
+          return form.setError("tags", {
+            type: "max",
+            message: "You can only add up to 3 tags",
+          });
+        }
+
+        // Check if the tag already exists in the array
+        if (!field.value.includes(tagValue)) {
+          // Properly append the new tag to the array
+          form.setValue("tags", [...field.value, tagValue]);
+          tagInput.value = ""; // Clear the input field
+          form.clearErrors("tags"); // Clear any previous errors
         } else {
-          form.trigger();
+          form.trigger(); // Trigger validation if duplicate tag is added
         }
       }
     }
@@ -180,8 +199,8 @@ function Question() {
                       {field.value.map((tag: any) => (
                         <Badge
                           key={tag}
-                          className="subtle-medium background-light800 _dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
-                          onClick={() => handleTagRemove(tag, fileld)}
+                          className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize"
+                          onClick={() => handleTagRemove(tag, field)}
                         >
                           {tag}
                           <Image
@@ -206,7 +225,17 @@ function Question() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          className="primary-gradient w-fit !text-light-900"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>{type === "edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
+        </Button>
       </form>
     </Form>
   );
